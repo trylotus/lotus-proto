@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package lotus.example;
+
+import "lotus/lotus.proto";
+
+option go_package = "github.com/trylotus/go-lotus-proto/example";
+
+message Example {
+  option (lotus.composite) = {
+    index: [
+      {
+        fields: [
+          "hash",
+          "serial"
+        ]
+      },
+      {
+        fields: [
+          "big_int",
+          "big_dec"
+        ]
+      }
+    ]
+  };
+
+  uint32 id = 1 [(lotus.index) = {unique: true}];
+  string email = 2 [(lotus.index) = {
+    unique: true
+    type: INDEX_TYPE_UNORDERED
+  }];
+  bytes hash = 3 [(lotus.bytes).format = FORMAT_TYPE_HEX];
+  string serial = 4 [(lotus.numeric) = {precision: 78}]; // int256
+  string big_int = 5 [(lotus.numeric) = {precision: 1000}];
+  string big_dec = 6 [(lotus.numeric) = {}];
+}

@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package lotus.exchange;
+
+import "lotus/lotus.proto";
+
+option go_package = "github.com/trylotus/go-lotus-proto/exchange";
+
+message LiquidityPool {
+  string pool_id = 1;
+  repeated bytes token_addresses = 2 [(lotus.bytes).format = FORMAT_TYPE_HEX];
+  repeated bytes token_reserves = 3 [(lotus.numeric) = {}];
+  bytes lp_token_address = 4 [(lotus.bytes).format = FORMAT_TYPE_HEX];
+  string lp_token_supply = 5 [(lotus.numeric) = {}];
+  string pool_fee = 6 [(lotus.numeric) = {}];
+}

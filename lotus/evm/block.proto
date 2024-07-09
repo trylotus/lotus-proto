@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package lotus.evm;
+
+import "google/protobuf/timestamp.proto";
+import "lotus/evm/transaction.proto";
+
+option go_package = "github.com/trylotus/go-lotus-proto/evm";
+
+message Block {
+  google.protobuf.Timestamp timestamp = 1;
+  uint64 block_number = 2;
+  bytes block_hash = 3;
+  bytes parent_hash = 4;
+  repeated Transaction transactions = 5;
+}

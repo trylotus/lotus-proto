@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package lotus.evm;
+
+import "lotus/lotus.proto";
+
+option go_package = "github.com/trylotus/go-lotus-proto/evm";
+
+message ERC1155 {
+  bytes address = 1 [(lotus.bytes).format = FORMAT_TYPE_HEX];
+  string uri = 2;
+}

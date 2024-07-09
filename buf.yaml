@@ -1,0 +1,11 @@
+version: v2
+name: buf.build/lotus/lotus-proto
+lint:
+  use:
+    - DEFAULT
+  except:
+    - PACKAGE_VERSION_SUFFIX
+    - ENUM_ZERO_VALUE_SUFFIX
+breaking:
+  use:
+    - FILE

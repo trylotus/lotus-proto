@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package lotus.staking;
+
+import "lotus/lotus.proto";
+
+option go_package = "github.com/trylotus/go-lotus-proto/staking";
+
+message Validator {
+  bytes validator_address = 1 [(lotus.bytes).format = FORMAT_TYPE_HEX];
+  string total_stake = 2 [(lotus.numeric) = {}];
+  string commission_rate = 3 [(lotus.numeric) = {}];
+  bool is_active = 4;
+}

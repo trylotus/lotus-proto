@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package lotus.evm;
+
+import "google/protobuf/timestamp.proto";
+import "lotus/lotus.proto";
+
+option go_package = "github.com/trylotus/go-lotus-proto/evm";
+
+message Transaction {
+  google.protobuf.Timestamp timestamp = 1;
+  bytes from_address = 2 [(lotus.bytes).format = FORMAT_TYPE_HEX];
+  bytes to_address = 3 [(lotus.bytes).format = FORMAT_TYPE_HEX];
+  string value = 4 [(lotus.numeric) = {}];
+  string gas_price = 5 [(lotus.numeric) = {}];
+  uint64 gas_limit = 6;
+  bytes data = 7;
+  uint64 nonce = 8;
+}

@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package lotus.staking;
+
+import "google/protobuf/timestamp.proto";
+import "lotus/lotus.proto";
+
+option go_package = "github.com/trylotus/go-lotus-proto/staking";
+
+message Delegation {
+  google.protobuf.Timestamp timestamp = 1;
+  bytes delegator_address = 2 [(lotus.bytes).format = FORMAT_TYPE_HEX];
+  bytes validator_address = 3 [(lotus.bytes).format = FORMAT_TYPE_HEX];
+  string amount = 4 [(lotus.numeric) = {}];
+}

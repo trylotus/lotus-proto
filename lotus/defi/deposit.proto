@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package lotus.defi;
+
+import "google/protobuf/timestamp.proto";
+import "lotus/lotus.proto";
+
+option go_package = "github.com/trylotus/go-lotus-proto/defi";
+
+message Deposit {
+  google.protobuf.Timestamp timestamp = 1;
+  bytes user_address = 2 [(lotus.bytes).format = FORMAT_TYPE_HEX];
+  string deposit_id = 3;
+  string amount = 4 [(lotus.numeric) = {}];
+  string platform = 5;
+}

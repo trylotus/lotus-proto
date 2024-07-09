@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package lotus.evm;
+
+import "lotus/lotus.proto";
+
+option go_package = "github.com/trylotus/go-lotus-proto/evm";
+
+message ERC721 {
+  bytes address = 1 [(lotus.bytes).format = FORMAT_TYPE_HEX];
+  string name = 2;
+  string symbol = 3;
+  string base_uri = 4;
+}

@@ -1,0 +1,77 @@
+syntax = "proto3";
+
+package lotus;
+
+import "google/protobuf/descriptor.proto";
+
+option go_package = "github.com/trylotus/go-lotus-proto;lotus";
+
+// This extension allows adding options to protocol buffer messages.
+extend google.protobuf.MessageOptions {
+  // Option to specify composite indexes on multiple fields.
+  optional CompositeIndexesOption composite = 99001;
+}
+
+// This extension allows adding options to protocol buffer fields.
+extend google.protobuf.FieldOptions {
+  // Option to mark a field as indexed.
+  optional IndexOption index = 99001;
+  // Option to specify how bytes fields are encoded/decoded.
+  optional BytesOption bytes = 99002;
+  // Option to specify how numeric fields are scaled/represented.
+  optional NumericOption numeric = 99003;
+}
+
+// Specifies the type of index.
+enum IndexType {
+  // Ordered index (maintains order).
+  INDEX_TYPE_ORDERED = 0;
+  // Unordered index (faster for lookups).
+  INDEX_TYPE_UNORDERED = 1;
+}
+
+// Defines options for indexing a field.
+message IndexOption {
+  // Type of index (defaults to ordered).
+  IndexType type = 1;
+  // Whether this is a unique index (defaults to false).
+  bool unique = 2;
+}
+
+// Defines options for indexing multiple fields.
+message CompositeIndexesOption {
+  // List of composite indexes.
+  repeated CompositeIndexOption index = 1;
+}
+
+// Defines options for composite indexes involving multiple fields.
+message CompositeIndexOption {
+  // Type of composite index (defaults to ordered).
+  IndexType type = 1;
+  // Whether this is a unique index (defaults to false).
+  bool unique = 2;
+  // List of field names involved in the composite index.
+  repeated string fields = 3;
+}
+
+// Specifies the format for encoding/decoding bytes data.
+enum FormatType {
+  // Standard base64 encoding.
+  FORMAT_TYPE_BASE64 = 0;
+  // Hexadecimal encoding.
+  FORMAT_TYPE_HEX = 1;
+}
+
+// Defines options for how bytes fields are encoded/decoded.
+message BytesOption {
+  // Format to use for displaying binary data (defaults to base64).
+  FormatType format = 1;
+}
+
+// Defines options for how numeric fields are scaled/represented.
+message NumericOption {
+  // Total number of significant digits (including decimals).
+  optional uint32 precision = 1;
+  // Number of decimal places (0 for integers).
+  optional uint32 scale = 2;
+}

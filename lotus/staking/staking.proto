@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package lotus.staking;
+
+import "google/protobuf/timestamp.proto";
+import "lotus/lotus.proto";
+
+option go_package = "github.com/trylotus/go-lotus-proto/staking";
+
+message Staking {
+  google.protobuf.Timestamp timestamp = 1;
+  bytes staker_address = 2 [(lotus.bytes).format = FORMAT_TYPE_HEX];
+  string amount = 3 [(lotus.numeric) = {}];
+  uint64 staking_duration = 4;
+  string reward_amount = 5 [(lotus.numeric) = {}];
+}

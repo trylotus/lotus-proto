@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package lotus.exchange;
+
+import "google/protobuf/timestamp.proto";
+import "lotus/lotus.proto";
+
+option go_package = "github.com/trylotus/go-lotus-proto/exchange";
+
+message AMMTrade {
+  google.protobuf.Timestamp timestamp = 1;
+  bytes trader_address = 2 [(lotus.bytes).format = FORMAT_TYPE_HEX];
+  string trade_id = 3;
+  bytes input_token_address = 4 [(lotus.bytes).format = FORMAT_TYPE_HEX];
+  string input_amount = 5 [(lotus.numeric) = {}];
+  bytes output_token_address = 6 [(lotus.bytes).format = FORMAT_TYPE_HEX];
+  string output_amount = 7 [(lotus.numeric) = {}];
+}

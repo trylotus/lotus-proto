@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package lotus.governance;
+
+import "google/protobuf/timestamp.proto";
+import "lotus/lotus.proto";
+
+option go_package = "github.com/trylotus/go-lotus-proto/governance";
+
+message Proposal {
+  google.protobuf.Timestamp timestamp = 1;
+  bytes proposer_address = 2 [(lotus.bytes).format = FORMAT_TYPE_HEX];
+  string proposal_id = 3;
+  string title = 4;
+  string description = 5;
+  repeated string voting_options = 6;
+  google.protobuf.Timestamp voting_deadline = 7;
+}

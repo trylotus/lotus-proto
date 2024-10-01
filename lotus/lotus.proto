@@ -10,6 +10,8 @@ option go_package = "github.com/trylotus/go-lotus-proto;lotus";
 extend google.protobuf.MessageOptions {
   // Option to specify composite indexes on multiple fields.
   optional CompositeIndexesOption composite = 99001;
+  // Option to specify a view aggregated from another message.
+  optional ViewOption view = 99002;
 }
 
 // This extension allows adding options to protocol buffer fields.
@@ -20,6 +22,8 @@ extend google.protobuf.FieldOptions {
   optional BytesOption bytes = 99002;
   // Option to specify how numeric fields are scaled/represented.
   optional NumericOption numeric = 99003;
+  // Option to define a calculated field, computed from other fields.
+  optional string projection = 99004;
 }
 
 // Specifies the type of index.
@@ -32,9 +36,9 @@ enum IndexType {
 
 // Defines options for indexing a field.
 message IndexOption {
-  // Type of index (defaults to ordered).
+  // Type of index (default to ordered).
   IndexType type = 1;
-  // Whether this is a unique index (defaults to false).
+  // Whether this is a unique index (default to false).
   bool unique = 2;
 }
 
@@ -46,9 +50,9 @@ message CompositeIndexesOption {
 
 // Defines options for composite indexes involving multiple fields.
 message CompositeIndexOption {
-  // Type of composite index (defaults to ordered).
+  // Type of composite index (default to ordered).
   IndexType type = 1;
-  // Whether this is a unique index (defaults to false).
+  // Whether this is a unique index (default to false).
   bool unique = 2;
   // List of field names involved in the composite index.
   repeated string fields = 3;
@@ -64,7 +68,7 @@ enum FormatType {
 
 // Defines options for how bytes fields are encoded/decoded.
 message BytesOption {
-  // Format to use for displaying binary data (defaults to base64).
+  // Format to use for displaying binary data (default to base64).
   FormatType format = 1;
 }
 
@@ -74,4 +78,20 @@ message NumericOption {
   optional uint32 precision = 1;
   // Number of decimal places (0 for integers).
   optional uint32 scale = 2;
+}
+
+// Defines options for aggregating data from another message.
+message ViewOption {
+  // Topic that is aggregated from.
+  string topic = 1;
+  // Whether this is a materialized view (default to false).
+  bool materialized = 2;
+  // Whether to enable realtime aggregation (default to false).
+  bool realtime = 3;
+  // Time interval to refresh materialized view.
+  string refresh_interval = 4;
+  // View options.
+  repeated string options = 5;
+  // List of field names used for aggregation.
+  repeated string group_by = 6;
 }

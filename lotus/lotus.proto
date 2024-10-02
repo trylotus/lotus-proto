@@ -94,4 +94,8 @@ message ViewOption {
   repeated string options = 5;
   // List of field names used for aggregation.
   repeated string group_by = 6;
+  // Where condition applied to the aggregation.
+  string where = 7;
+  // Having condition applied to the aggregation.
+  string having = 8;
 }
